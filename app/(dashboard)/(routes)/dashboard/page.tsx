@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import {Card} from "@/components/ui/card";
 import {cn} from "@/lib/utils";
+import {useRouter} from "next/navigation";
 
 const tools = [
     {
@@ -38,17 +39,19 @@ const tools = [
         icon: Music,
         color: "text-emerald-500",
         bgColor: "bg-emerald-500/10",
-        href: "/image"
+        href: "/music"
     },
     {
         label: "Gerar Código",
         icon: Code2Icon,
-        color: "text-violet-500",
-        bgColor: "bg-violet-500/10",
-        href: "/image"
+        color: "text-green-700",
+        bgColor: "bg-green-700/10",
+        href: "/code"
     },
 ]
 const DashboardPage = () => {
+    const router = useRouter()
+
     return (
         <div>
             <div className="mb-8 space-y-4">
@@ -61,7 +64,9 @@ const DashboardPage = () => {
             </div>
             <div className="px-4 md:px-20 lg:px-32 space-y-4">
                 {tools.map((tool) =>  (
-                    <Card key={tool.href+tool.label}
+                    <Card
+                        onClick={() => router.push(tool.href)}
+                        key={tool.href+tool.label}
                           className="p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer"
                     >
                         <div className=" flex items-center gap-x-4">
