@@ -10,10 +10,9 @@ export default authMiddleware({
         if (!auth.userId && !auth.isPublicRoute) {
             return redirectToSignIn({ returnBackUrl: req.url });
         }
-
-        if(auth.userId && !auth.orgId && req.nextUrl.pathname !== "/dashboard"){
-            const orgSelection = new URL('/dashboard', req.url)
-            return NextResponse.redirect(orgSelection)
+        if (auth.userId && req.nextUrl.pathname === "/sign-in") {
+            const dashboard = new URL('/dashboard', req.url);
+            return NextResponse.redirect(dashboard);
         }
     },
 });
