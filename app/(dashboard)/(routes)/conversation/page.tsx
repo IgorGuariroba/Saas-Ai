@@ -13,6 +13,8 @@ import {useRouter} from "next/navigation";
 import {useState} from "react";
 import axios from "axios";
 import {ChatCompletionMessage} from "@/node_modules/openai/src/resources/chat";
+import {Empty} from "@/components/empty/empty";
+import Loader from "@/components/loader/loader";
 
 const Conversation = () => {
     const router = useRouter()
@@ -98,10 +100,13 @@ const Conversation = () => {
                     </Form>
                 </div>
                 <div className="space-y-4 mt-4">
-                    {messagens.length === 0 && !isLoading && (
-                        <div>
-                            Empty!
+                    {isLoading && (
+                        <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+                            <Loader />
                         </div>
+                    )}
+                    {messagens.length === 0 && !isLoading && (
+                        <Empty label="Nenhuma mensagem enviada."/>
                     )}
                     <div className="flex flex-col-reverse gap-y-4">
                         {messagens.map((message) =>(
