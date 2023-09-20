@@ -1,7 +1,7 @@
 "use client"
 import * as z from "zod";
 import Heading from "@/components/heading/heading";
-import {MessageSquareIcon} from "lucide-react";
+import {Code2} from "lucide-react";
 import {useForm} from "react-hook-form";
 
 import {formSchema} from "./constants"
@@ -18,8 +18,9 @@ import Loader from "@/components/loader/loader";
 import {cn} from "@/lib/utils";
 import {UserAvatar} from "@/components/user-avatar/user-avatar";
 import {BotAvatar} from "@/components/bot-avatar/bot-avatar";
+import ReactMarkdown from "react-markdown";
 
-const Conversation = () => {
+const CodePage = () => {
     const router = useRouter()
     const [messagens, setMessages] = useState<ChatCompletionMessage[]>([])
     const form = useForm<z.infer<typeof formSchema>>({
@@ -38,7 +39,7 @@ const Conversation = () => {
             };
             const newMessages = [...messagens, userMessage]
 
-            const response = await axios.post("/api/conversation", {
+            const response = await axios.post("/api/code", {
                 messages: newMessages,
             })
 
@@ -52,14 +53,15 @@ const Conversation = () => {
         }
     }
 
+    // @ts-ignore
     return (
         <div>
             <Heading
-                title="Conversar"
-                description="Nosso mais avançado modelo de conversação"
-                icon={MessageSquareIcon}
-                iconColor="text-violet-500"
-                bgColor="bg-violet-500/10"
+                title="Gerar Codigo"
+                description="Geramos um codigo com base na sua descrição"
+                icon={Code2}
+                iconColor="text-green-700"
+                bgColor="bg-green-700/10"
             />
             <div className="px-4 lg:px-8">
                 <div>
@@ -89,7 +91,7 @@ const Conversation = () => {
                                                     focus-visible:ring-0
                                                     focus-visible:ring-transparent"
                                                 disabled={isLoading}
-                                                placeholder="Qual é a distância entre o Sol e o primeiro planeta?"
+                                                placeholder="Botão simples usando react hooks."
                                                 {...field}
                                             />
                                         </FormControl>
@@ -109,7 +111,7 @@ const Conversation = () => {
                         </div>
                     )}
                     {messagens.length === 0 && !isLoading && (
-                        <Empty label="Nenhuma mensagem enviada."/>
+                        <Empty label="Nenhuma descrição informada."/>
                     )}
                     <div className="flex flex-col-reverse gap-y-4">
                         {messagens.map((message) => (
@@ -120,9 +122,21 @@ const Conversation = () => {
                                 )}
                             >
                                 {message.role === "user" ? <UserAvatar/> : <BotAvatar/>}
-                                <p className="text-sm">
-                                    {message.content}
-                                </p>
+                                <ReactMarkdown
+                                components={{
+                                    pre:({node,...props}) => (
+                                        <div className="overflow-auto w-full my-2 bg-black/20 p-2 rounded-lg">
+                                            <pre {...props} />
+                                        </div>
+                                    ),
+                                    code: ({node, ...props}) => (
+                                        <code className="bg-black/10 rounded-lg p-1" {...props} />
+                                    )
+                                }}
+                                className="text-sm overflow-hidden leading-7"
+                                >
+                                    {message.content || ""}
+                                </ReactMarkdown>
                             </div>
                         ))}
                     </div>
@@ -132,4 +146,4 @@ const Conversation = () => {
     )
 }
 
-export default Conversation
+export default CodePage
