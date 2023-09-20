@@ -15,6 +15,9 @@ import axios from "axios";
 import {ChatCompletionMessage} from "@/node_modules/openai/src/resources/chat";
 import {Empty} from "@/components/empty/empty";
 import Loader from "@/components/loader/loader";
+import {cn} from "@/lib/utils";
+import {UserAvatar} from "@/components/user-avatar/user-avatar";
+import {BotAvatar} from "@/components/bot-avatar/bot-avatar";
 
 const Conversation = () => {
     const router = useRouter()
@@ -110,12 +113,18 @@ const Conversation = () => {
                     )}
                     <div className="flex flex-col-reverse gap-y-4">
                         {messagens.map((message) =>(
-                            <div key={message.content}>
-                                {message.content}
+                            <div
+                                key={message.content}
+                                className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg",
+                                message.role === "user" ? "bg-white border border-black/10" : "bg-muted"
+                                )}
+                            >
+                                {message.role === "user" ? <UserAvatar/> : <BotAvatar/>}
+                                <p className="text-sm">
+                                    {message.content}
+                                </p>
                             </div>
-                        ))
-
-                        }
+                        ))}
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ const Loader = () => {
             <div className="w-10  h-10 relative animate-spin">
                     <Image
                         fill
+                        sizes="(max-width: 500px)"
                         src="/logo-v.png"
                         alt="logo"
                     />
