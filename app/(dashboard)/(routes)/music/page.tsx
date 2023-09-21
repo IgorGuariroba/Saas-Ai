@@ -12,7 +12,6 @@ import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import axios from "axios";
-import {ChatCompletionMessage} from "@/node_modules/openai/src/resources/chat";
 import {Empty} from "@/components/empty/empty";
 import Loader from "@/components/loader/loader";
 
@@ -95,16 +94,18 @@ const MusicPage = () => {
                 <div className="space-y-4 mt-4">
                     {isLoading && (
                         <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-                            <Loader/>
+                            <Loader description="preparando os instrumentos"/>
                         </div>
                     )}
                     {!music && !isLoading && (
                         <Empty label="Nenhuma musica criada."/>
                     )}
                 </div>
-                <div className="">
-                    A musica será gerada aqui
-                </div>
+                {music && (
+                    <audio controls className="w-full mt-8">
+                        <source src={music}/>
+                    </audio>
+                )}
             </div>
         </div>
     )
