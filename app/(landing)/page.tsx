@@ -3,21 +3,18 @@ import Link from "next/link";
 
 const LandingPage = () => {
     return (
-        <>
-            Landing Page (Unprotected)
-            <div>
-                <Link href="/sign-in">
-                    <Button>
-                        Logar
-                    </Button>
-                </Link>
-                <Link href="/sign-up">
-                    <Button>
-                        Cadastrar-se
-                    </Button>
-                </Link>
-            </div>
-        </>
+        <div>
+            <Link href="/sign-in">
+                <Button>
+                    Logar
+                </Button>
+            </Link>
+            <Link href="/sign-up">
+                <Button>
+                    Cadastrar-se
+                </Button>
+            </Link>
+        </div>
     );
 };
 
