@@ -11,7 +11,7 @@ export const Empty = ({label}: EmptyProps) => {
                 <Image
                     fill
                     sizes="(max-width: 500px)"
-                    src="/logo.png"
+                    src="/empty.png"
                     alt="Vazio"
                     className="fill-teal-900"
                 />
