@@ -18,8 +18,10 @@ import Loader from "@/components/loader/loader";
 import {cn} from "@/lib/utils";
 import {UserAvatar} from "@/components/user-avatar/user-avatar";
 import {BotAvatar} from "@/components/bot-avatar/bot-avatar";
+import {useProModal} from "@/hooks/use-pro-modal";
 
-const Conversation = () => {
+const ConversationPage = () => {
+    const proModal = useProModal()
     const router = useRouter()
     const [messagens, setMessages] = useState<ChatCompletionMessage[]>([])
     const form = useForm<z.infer<typeof formSchema>>({
@@ -46,7 +48,9 @@ const Conversation = () => {
 
             form.reset()
         } catch (error: any) {
-            console.log(error)
+            if (error?.response?.status === 403){
+               proModal.onOpen()
+            }
         } finally {
             router.refresh()
         }
@@ -132,4 +136,4 @@ const Conversation = () => {
     )
 }
 
-export default Conversation
+export default ConversationPage
