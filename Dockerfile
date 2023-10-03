@@ -1,21 +1,28 @@
-# Pull from the official Docker image for Node.js
+# Imagem base.
 FROM node:18.17.1
 
-# Set the working directory in the Docker container
+# Diretório de trabalho.
 WORKDIR /usr/src/app
 
-# Update npm to the latest version
+# Atualização do npm para a última versão.
 RUN npm install -g npm@latest
 
-# Change to non-root user
+# Download e instalação do Stripe CLI
+RUN curl -L -O https://github.com/stripe/stripe-cli/releases/download/v1.17.2/stripe_1.17.2_linux_arm64.tar.gz \
+  && tar -xvf stripe_1.17.2_linux_arm64.tar.gz \
+  && mv ./stripe /usr/local/bin
+
+# Definição de usuário não-root.
 USER node
 
-# Copy the desired files from your project to the current directory in the container
+# Copiando os arquivos desejados do seu projeto para o diretório atual no container.
 COPY --chown=node:node . .
 
-# Install dependencies
+# Instalação de dependências
 RUN npm install
 
+# Expondo a porta necessário.
 EXPOSE 3000
 
+# Comando padrão
 CMD ["npm", "run", "dev"]
