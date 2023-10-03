@@ -4,13 +4,18 @@ FROM node:18.17.1
 # Diretório de trabalho.
 WORKDIR /usr/src/app
 
-# Atualização do npm para a última versão.
-RUN npm install -g npm@latest
+# Atualização do npm e instalação do apt-transport-https para a instalação do Stripe CLI.
+RUN npm install -g npm@latest \
+  && apt-get update \
+  && apt-get install -y apt-transport-https
 
-# Download e instalação do Stripe CLI
-RUN curl -L -O https://github.com/stripe/stripe-cli/releases/download/v1.17.2/stripe_1.17.2_linux_arm64.tar.gz \
-  && tar -xvf stripe_1.17.2_linux_arm64.tar.gz \
-  && mv ./stripe /usr/local/bin
+# Chave GPG e repositório do Stripe CLI.
+RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-keys 379CE192D401AB61 \
+  && echo "deb https://dl.bintray.com/stripe/stripe-cli-deb stable main" | tee -a /etc/apt/sources.list
+
+# Atualização da lista de pacotes e instalação do Stripe CLI.
+RUN apt-get update \
+  && apt-get install -y stripe
 
 # Definição de usuário não-root.
 USER node
