@@ -15,6 +15,7 @@ import {cn} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
 import axios from "axios";
 import {useState} from "react";
+import toast from "react-hot-toast";
 
 const tools = [
     {
@@ -59,7 +60,7 @@ export const ProModal = () => {
 
             window.location.href = response.data.url
         } catch (error) {
-            console.log("STRIPE_CLIENT_ERROR")
+                toast.error("Algo deu errado!")
         } finally {
             setLoading(false)
         }
@@ -99,6 +100,7 @@ export const ProModal = () => {
                     </DialogHeader>
                     <DialogFooter>
                         <Button
+                            disabled={loading}
                             onClick={onSubscribe}
                             size="lg"
                             variant="premium"
