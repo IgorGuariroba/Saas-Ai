@@ -10,8 +10,8 @@ RUN npm install -g npm@latest \
   && apt-get install -y apt-transport-https
 
 # Chave GPG e repositório do Stripe CLI.
-RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-keys 379CE192D401AB61 \
-  && echo "deb https://dl.bintray.com/stripe/stripe-cli-deb stable main" | tee -a /etc/apt/sources.list
+#RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-keys 379CE192D401AB61 \
+#  && echo "deb https://dl.bintray.com/stripe/stripe-cli-deb stable main" | tee -a /etc/apt/sources.list
 
 # Atualização da lista de pacotes e instalação do Stripe CLI.
 RUN apt-get update \
