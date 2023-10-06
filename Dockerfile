@@ -20,10 +20,14 @@ RUN npm install -g npm@latest \
 # Definição de usuário não-root.
 USER node
 
+# Criar o diretório node_modules e atribuir permissões.
+USER root
+RUN mkdir -p /usr/src/app/node_modules
+RUN chown -R node:node /usr/src/app/node_modules
+USER node
+
 # Copiando os arquivos desejados do seu projeto para o diretório atual no container.
 COPY --chown=node:node . .
-
-RUN npm cache clean --force
 
 # Instalação de dependências
 RUN npm install
