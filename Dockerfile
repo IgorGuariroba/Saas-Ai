@@ -23,6 +23,8 @@ USER node
 # Copiando os arquivos desejados do seu projeto para o diretório atual no container.
 COPY --chown=node:node . .
 
+RUN npm cache clean --force
+
 # Instalação de dependências
 RUN npm install
 
