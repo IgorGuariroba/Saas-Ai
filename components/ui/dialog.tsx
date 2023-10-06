@@ -5,16 +5,19 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import ReactMarkdown from "react-markdown";
+import className = ReactMarkdown.propTypes.className;
 
 const Dialog = DialogPrimitive.Root
 
 const DialogTrigger = DialogPrimitive.Trigger
 
 const DialogPortal = ({
-  className,
   ...props
 }: DialogPrimitive.DialogPortalProps) => (
-  <DialogPrimitive.Portal className={cn(className)} {...props} />
+    <div className={cn(className)}>
+        <DialogPrimitive.Portal {...props} />
+    </div>
 )
 DialogPortal.displayName = DialogPrimitive.Portal.displayName
 

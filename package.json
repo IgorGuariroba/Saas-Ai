@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "db": "npx prisma studio",
-    "criar-db": "npx prisma generate",
+    "postinstall": "prisma generate",
     "push-db": "npx prisma db push",
     "prisma-reset": "npx prisma migrate reset"
   },
