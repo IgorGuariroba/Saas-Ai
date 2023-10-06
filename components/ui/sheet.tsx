@@ -6,6 +6,8 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import ReactMarkdown from "react-markdown";
+import className = ReactMarkdown.propTypes.className;
 
 const Sheet = SheetPrimitive.Root
 
@@ -14,10 +16,11 @@ const SheetTrigger = SheetPrimitive.Trigger
 const SheetClose = SheetPrimitive.Close
 
 const SheetPortal = ({
-  className,
   ...props
 }: SheetPrimitive.DialogPortalProps) => (
-  <SheetPrimitive.Portal className={cn(className)} {...props} />
+    <div className={cn(className)}>
+        <SheetPrimitive.Portal  {...props} />
+    </div>
 )
 SheetPortal.displayName = SheetPrimitive.Portal.displayName
 
