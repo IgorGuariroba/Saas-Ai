@@ -31,9 +31,10 @@ COPY --chown=node:node . .
 
 # Instalação de dependências
 RUN npm install
+RUN npm build
 
 # Expondo a porta necessário.
-EXPOSE 3000
+EXPOSE 80
 
 # Comando padrão
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
