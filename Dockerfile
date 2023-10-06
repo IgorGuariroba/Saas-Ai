@@ -14,8 +14,8 @@ RUN npm install -g npm@latest \
 #  && echo "deb https://dl.bintray.com/stripe/stripe-cli-deb stable main" | tee -a /etc/apt/sources.list
 
 # Atualização da lista de pacotes e instalação do Stripe CLI.
-RUN apt-get update \
-  && apt-get install -y stripe
+#RUN apt-get update \
+#  && apt-get install -y stripe
 
 # Definição de usuário não-root.
 USER node
