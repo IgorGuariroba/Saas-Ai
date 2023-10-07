@@ -12,7 +12,6 @@ import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import axios from "axios";
-import {ChatCompletionMessage} from "@/node_modules/openai/src/resources/chat";
 import {Empty} from "@/components/empty/empty";
 import Loader from "@/components/loader/loader";
 import {cn} from "@/lib/utils";
@@ -20,11 +19,12 @@ import {UserAvatar} from "@/components/user-avatar/user-avatar";
 import {BotAvatar} from "@/components/bot-avatar/bot-avatar";
 import {useProModal} from "@/hooks/use-pro-modal";
 import toast from "react-hot-toast";
+import {ChatCompletionRequestMessage} from "openai";
 
 const ConversationPage = () => {
     const proModal = useProModal()
     const router = useRouter()
-    const [messagens, setMessages] = useState<ChatCompletionMessage[]>([])
+    const [messagens, setMessages] = useState<ChatCompletionRequestMessage[]>([])
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -35,7 +35,7 @@ const ConversationPage = () => {
     const isLoading = form.formState.isSubmitting
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const userMessage: ChatCompletionMessage = {
+            const userMessage: ChatCompletionRequestMessage = {
                 role: "user",
                 content: values.prompt,
             };
