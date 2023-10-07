@@ -16,7 +16,7 @@ const DashboardLayout = async ({children}: {
             md:w-72 md:flex-col md:fixed md:inset-y-0
             bg-gray-900">
                 <Sidebar apiLimitCount={apiLimitCount}  isPro={isPro}/>
-                <div>
+                <div>import
                 </div>
             </div>
             <main className="md:pl-72">
